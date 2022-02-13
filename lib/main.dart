@@ -1,66 +1,43 @@
-
+import 'package:dart_notebook/model/main_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+      title: 'provider demo',
+      // providerで状態管理する箇所を囲む
+      home: ChangeNotifierProvider<MainModel>(
+        // この画面が作成されたときにMainModelも読み込ませる
+        create: (_) => MainModel(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('provider'),
+          ),
+          // 再描画したい箇所だけConsumerで囲む
+          // notifyListeners()で再描画される
+          // modelの中身はMainModel
+          body: Consumer<MainModel>(builder: (context, model, child) {
+            return Center(
+              child: Column(
+                children: [
+                  Text(model.text),
+                  ElevatedButton(
+                    child: Text('ボタン'),
+                    onPressed: () {
+                      model.changeText();
+                    },
+                  )
+                ],
+              ),
+            );
+          }),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
