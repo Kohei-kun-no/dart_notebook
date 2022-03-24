@@ -612,7 +612,7 @@ class MultipleItemDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Multiple item in one slide demo')),
+      appBar: AppBar(title: Text('carousel slide demo')),
       body: Container(
           child: CarouselSlider.builder(
             options: CarouselOptions(
