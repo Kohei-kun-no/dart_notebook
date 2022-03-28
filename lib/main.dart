@@ -483,7 +483,7 @@ class _PrefetchImageDemoState extends State<PrefetchImageDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('To Grasses')),
+      appBar: AppBar(title: Text('To')),
       body: Container(
           child: CarouselSlider.builder(
             itemCount: images.length,
